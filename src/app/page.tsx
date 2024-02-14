@@ -1,95 +1,93 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import waitlist from "@/data/waitList";
 
 export default function Home() {
+  
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div className={styles.turn}>
+        <h1 className={styles.title}>54</h1>
+        <p  className={styles.pr}>personas delante de ti</p>
+        
+        <h2>cliente: Mauricio Macri</h2>
+        
+        <h1 className={styles.title}>3hs</h1>
+        <p  className={styles.pr}>de espera aproximada</p>
+
+        <div className={styles.buttons}>
+          <button className={styles.primaryButton}>Volver</button>
+          <button className={styles.secondaryButton}>Cancelar</button>
         </div>
+
+      </div>
+      
+
+      <div className={styles.stateBar}>
+        <h1>Pendiente</h1>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
   );
 }
+
+type ButtonProps = {
+  text: string;
+};
+
+type WaitlistItemProps = {
+  clientName: string;
+  position: number;
+  estimatedTime: number;
+  waitedTime: number;
+  state: 'waiting' | 'inProgress' | 'exit';
+};
+
+const WaitlistItemComponent: React.FC<WaitlistItemProps> = ({ clientName, position, estimatedTime, waitedTime, state }) => {
+  return (
+    <div>
+      <h3>{clientName} (Position: {position})</h3>
+      <p>Estimated Time: {estimatedTime} mins | Waited Time: {waitedTime} mins</p>
+      <p>Status: {state}</p>
+    </div>
+  );
+};
+
+type WaitCard = {
+  clientName: string;
+  position: number;
+  estimatedTime: number;
+  waitedTime: number;
+  state: 'waiting' | 'inProgress' | 'exit';
+};
+
+const WaitCard: React.FC<WaitlistItemProps> = ({ clientName, position, estimatedTime, waitedTime, state }) => {
+  const locale = (state: string): string => {
+    switch (state) {
+      case 'waiting':
+        return 'Esperando';
+      case 'inProgress':
+        return 'En Progreso';
+      case 'exit':
+        return 'Finalizado';
+      default:
+        return 'Estado Desconocido';
+    }
+  }
+
+  return (
+    <div className={styles.clientCardBody}>
+      <div className={styles.clientCardTop} style={{backgroundColor:stateColor[state]}}></div>
+      <h3>Numero: {position}</h3>
+      <p>Tiempo estimado: {estimatedTime} mins</p>
+      <p>Estado del turno: {locale(state)}</p>
+    </div>
+  );
+};
+
+const stateColor = {
+  waiting: '#eedc31',
+  inProgress: '#00ff83',
+  exit: '#5b5b5b'
+};
+
