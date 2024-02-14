@@ -10,7 +10,7 @@ export default function Home() {
         <h1 className={styles.title}>54</h1>
         <p  className={styles.pr}>personas delante de ti</p>
         
-        <h2>cliente: Mauricio Macri</h2>
+        <h2>cliente: Mauric io Macri</h2>
         
         <h1 className={styles.title}>3hs</h1>
         <p  className={styles.pr}>de espera aproximada</p>
