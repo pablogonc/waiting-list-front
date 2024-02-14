@@ -1,9 +1,51 @@
-import Image from "next/image";
+'use client'
+import { useState, useEffect } from 'react';
 import styles from "./page.module.css";
-import waitlist from "@/data/waitList";
+
+const turn = {
+  position: 22,
+  name: 'juan',
+  estimatedTime: {
+    hours: 2,
+    minutes: 45,
+    seconds: 0
+  },
+  code: 'A05',
+  type: 'caja',
+  sucursal: 'Floresta'
+}
 
 export default function Home() {
-  
+
+  const [timeLeft, setTimeLeft] = useState<number>(turn.estimatedTime.hours * 3600 + turn.estimatedTime.minutes * 60 + turn.estimatedTime.seconds);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prevTimeLeft => {
+        if (prevTimeLeft > 0) {
+          return prevTimeLeft - 1;
+        } else {
+          clearInterval(timer);
+          return 0;
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []); 
+
+  const formatTimeLeft = (time: number): string => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.turn}>
@@ -13,18 +55,38 @@ export default function Home() {
         </div>
 
         <div className={styles.item}>
-          <span className={styles.text}>Lugar en la fila</span>
-          <span className={styles.number}>22</span>
+          <div className={styles.itemTitle}>
+            <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/queue-icon.png" alt="" />
+            <span className={styles.text}>Turnos restantes</span>
+          </div>
+
+          <span className={styles.number}>{turn.position}</span>
         </div>
 
         <div className={styles.item}>
-          <span className={styles.text}>Espera aproximada</span>
-          <span className={styles.number}>2hs</span>
+        <div className={styles.itemTitle}>
+            <img src="https://static.thenounproject.com/png/1061038-200.png" alt="" />
+            <span className={styles.text}>Espera aproximada</span>
+          </div>
+          
+          <span className={styles.number}>{formatTimeLeft(timeLeft)}</span>
+        </div>
+
+        <div className={styles.item}>
+          <div className={styles.itemTitle}>
+            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_location_on_48px-512.png" alt="" />
+            <span className={styles.text}>Sucursal</span>
+          </div>
+
+          <span className={styles.number}>{turn.sucursal}</span>
         </div>
 
         <div className={styles.item}>
           <span className={styles.sectionTitle}>Turno</span>
-          <span className={styles.turnText}>A05</span>
+          <div className={styles.ticket}>
+            <span className={styles.turnText}>{turn.code}</span>
+            <span className={styles.textTurnType}>{turn.type}</span>
+          </div>
           <button className={styles.textButton}>Cancelar turno</button>
         </div>
 
@@ -32,64 +94,3 @@ export default function Home() {
     </main>
   );
 }
-
-type ButtonProps = {
-  text: string;
-};
-
-type WaitlistItemProps = {
-  clientName: string;
-  position: number;
-  estimatedTime: number;
-  waitedTime: number;
-  state: 'waiting' | 'inProgress' | 'exit';
-};
-
-const WaitlistItemComponent: React.FC<WaitlistItemProps> = ({ clientName, position, estimatedTime, waitedTime, state }) => {
-  return (
-    <div>
-      <h3>{clientName} (Position: {position})</h3>
-      <p>Estimated Time: {estimatedTime} mins | Waited Time: {waitedTime} mins</p>
-      <p>Status: {state}</p>
-    </div>
-  );
-};
-
-type WaitCard = {
-  clientName: string;
-  position: number;
-  estimatedTime: number;
-  waitedTime: number;
-  state: 'waiting' | 'inProgress' | 'exit';
-};
-
-const WaitCard: React.FC<WaitlistItemProps> = ({ clientName, position, estimatedTime, waitedTime, state }) => {
-  const locale = (state: string): string => {
-    switch (state) {
-      case 'waiting':
-        return 'Esperando';
-      case 'inProgress':
-        return 'En Progreso';
-      case 'exit':
-        return 'Finalizado';
-      default:
-        return 'Estado Desconocido';
-    }
-  }
-
-  return (
-    <div className={styles.clientCardBody}>
-      <div className={styles.clientCardTop} style={{backgroundColor:stateColor[state]}}></div>
-      <h3>Numero: {position}</h3>
-      <p>Tiempo estimado: {estimatedTime} mins</p>
-      <p>Estado del turno: {locale(state)}</p>
-    </div>
-  );
-};
-
-const stateColor = {
-  waiting: '#eedc31',
-  inProgress: '#00ff83',
-  exit: '#5b5b5b'
-};
-
