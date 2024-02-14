@@ -7,26 +7,28 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.turn}>
-        <h1 className={styles.title}>54</h1>
-        <p  className={styles.pr}>personas delante de ti</p>
         
-        <h2>cliente: Mauric io Macri</h2>
-        
-        <h1 className={styles.title}>3hs</h1>
-        <p  className={styles.pr}>de espera aproximada</p>
+        <div className={styles.titleBar}>
+          <span className={styles.sectionTitle}>Gestion de turnos</span>
+        </div>
 
-        <div className={styles.buttons}>
-          <button className={styles.primaryButton}>Volver</button>
-          <button className={styles.secondaryButton}>Cancelar</button>
+        <div className={styles.item}>
+          <span className={styles.text}>Lugar en la fila</span>
+          <span className={styles.number}>22</span>
+        </div>
+
+        <div className={styles.item}>
+          <span className={styles.text}>Espera aproximada</span>
+          <span className={styles.number}>2hs</span>
+        </div>
+
+        <div className={styles.item}>
+          <span className={styles.sectionTitle}>Turno</span>
+          <span className={styles.turnText}>A05</span>
+          <button className={styles.textButton}>Cancelar turno</button>
         </div>
 
       </div>
-      
-
-      <div className={styles.stateBar}>
-        <h1>Pendiente</h1>
-      </div>
-
     </main>
   );
 }
