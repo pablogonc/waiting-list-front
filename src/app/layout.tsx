@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className='santander'>
-          <div><h1>Santander</h1></div>
+          <div><h1>Banco</h1></div>
           
         </div>
         {children}
