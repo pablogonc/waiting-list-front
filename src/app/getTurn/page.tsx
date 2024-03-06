@@ -30,7 +30,7 @@ export default function Home() {
       <main>
         <Titulo texto="Saca tu número"/>
         <section className={Styles.section}>
-            <form className={Styles.form} action="turno?dni=446" method="POST">
+            <form className={Styles.form} action="https://waiting-list-front.vercel.app/turno?dni=446" method="POST">
                 <TextField label="DNI" name="dni" placeHolder="Ingrese DNI" type="number" />
                 <Combo label="Motivo" name="motive" options={motives} placeHolder=""/>
                 <div className={Styles.buttonCenter}>
