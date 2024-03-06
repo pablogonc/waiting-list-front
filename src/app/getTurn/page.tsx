@@ -34,7 +34,7 @@ export default function Home() {
                 <TextField label="DNI" name="dni" placeHolder="Ingrese DNI" type="number" />
                 <Combo label="Motivo" name="motive" options={motives} placeHolder=""/>
                 <div className={Styles.buttonCenter}>
-                   <a href=""><Button style={{backgroundColor: '#F20303'}} buttonClass="primary" type="button">Continuar</Button></a> 
+                   <a href="/turno?dni=446"><Button style={{backgroundColor: '#F20303'}} buttonClass="primary" type="button">Continuar</Button></a> 
                 </div>
             </form>  
         </section>
