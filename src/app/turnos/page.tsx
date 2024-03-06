@@ -75,7 +75,7 @@ export default function Home() {
                         <div key={index} className={Styles.turnItem} style={{boxShadow: `inset -24px 0px 0px 0px ${index==1?'#5b5a5a':'#ffb100'}`}}>
                             <img src='https://static.thenounproject.com/png/526867-200.png' alt="" />
                             <div className={Styles.cardInfo}>
-                                <span><bold>{turn.type}</bold></span>
+                                <span style = {{ fontWeight: 'bold'}}>{turn.type}</span>
                                 <span>Sucursal: {turn.dir}. {turn.sucursal}</span>
                                 <span>Fecha:{turn.date} {turn.dateTime}</span>
                                 <span>Tiempo Restante: {turn.estimatedTime}</span>
