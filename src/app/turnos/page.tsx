@@ -72,7 +72,7 @@ export default function Home() {
                 <h1 className="subTitle">Mis turnos</h1>
                 <div className= {Styles.turnGrid}>
                     {turnos.map( (turn,index) => 
-                        <div className={Styles.turnItem} style={{boxShadow: `inset -24px 0px 0px 0px ${index==1?'#5b5a5a':'#ffb100'}`}}>
+                        <div key={index} className={Styles.turnItem} style={{boxShadow: `inset -24px 0px 0px 0px ${index==1?'#5b5a5a':'#ffb100'}`}}>
                             <img src='https://static.thenounproject.com/png/526867-200.png' alt="" />
                             <div className={Styles.cardInfo}>
                                 <span><bold>{turn.type}</bold></span>

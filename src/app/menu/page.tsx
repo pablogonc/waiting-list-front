@@ -37,8 +37,8 @@ export default function Home() {
       <main>
         <div  className={styles.sectionsbody}>
             <div className={styles.sectionsContainer}>
-                {sections.map( section =>
-                <a href="" className={styles.sectionItem}>
+                {sections.map( (section, index) =>
+                <a key={index} href="" className={styles.sectionItem}>
                     <img src={section.logo} alt="" />
                     <h3>{section.name}</h3>
                 </a> 
